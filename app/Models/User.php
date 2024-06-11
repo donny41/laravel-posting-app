@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+// メール認証追加用
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable
+// class User extends Authenticatable
+// メール認証追加用に implements追加
+class User extends Authenticatable implements MustVerifyEmail
+
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -42,4 +47,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+     // 1人のユーザーは複数の投稿を作成できる
+     public function posts()
+     {
+         return $this->hasMany(Post::class);
+     }
+
 }
