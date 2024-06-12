@@ -9,8 +9,9 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+     // 1つの投稿は1人のユーザーに属する
+     public function user()
+     {
+         return $this->belongsTo(User::class);
+     }
 }
